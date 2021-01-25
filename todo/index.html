@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<head>
+    <title>To Do List Web Apps</title>
+    <script href="index.js" type="text/javascript"></script>
+    <link href="index.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="body">
+        <div class="input">
+            <h1>To-Do List</h1>
+            <input id="items" type="text" name="items" placeholder="input task here">
+            <button id="submit">input</button>
+            <button id="clear">clear</button>
+        </div>
+
+        <div class="List">
+            <ul id="list-items">
+
+            </ul>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById("submit").addEventListener("click",addItem);
+        document.getElementById("clear").addEventListener("click",clearList);
+        
+
+
+        function addItem() {
+            const items = document.getElementById("items").value;
+            document.getElementById("list-items").innerHTML += '<li class="task">' + items + '<button class="delete">x</button></li>'
+            document.getElementById("items").value='';
+        }
+
+        function updateList() {
+            var element = document.getElementById("list-items");
+            element.scrollTop = element.scrollHeight;
+        }
+
+        function clearList() {
+            var element = document.getElementById("list-items").innerHTML = '';
+        }
+
+
+        document.getElementById("list-items").addEventListener("click", function(e){
+            if (e.target && e.target.nodeName == "BUTTON") {
+                console.log("button", e,"was clicked!");
+                e.target.parentNode.remove();
+            }
+        })
+
+    </script>
+</body>
