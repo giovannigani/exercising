@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>Note Taker</title>
+        <link rel="stylesheet" href="./index.css">
+    </head>
+    <body>
+        <div id="input">
+            <h1 id="input-title">Note</h1>
+            <textarea name="note-item" id="note-item" cols="30" rows="10" placeholder="input note here"></textarea> <br>
+            <button name="submit" id="submit">Submit</button>
+        </div>
+
+        <div id="note-list">
+
+        </div>
+
+        <script>
+            document.getElementById("submit").addEventListener("click", addNote);
+
+            function addNote() {
+                var empNote = document.getElementById("note-list"); //placeholder for notes
+                
+                var card = document.createElement("div"); //create element for note cards
+                card.setAttribute("class","note-item");
+                
+
+                var containerText = document.createElement("div"); //create element for writing section within note card
+                containerText.setAttribute("id", "containerText");
+                
+                
+                var containerButton = document.createElement("div"); //create element for button section within note card
+                containerButton.setAttribute("id", "containerButton");
+                
+                
+                var noteText = document.createElement("h4"); //create element for writing inside the note card
+                noteText.setAttribute("id","noteText");
+                var notes = document.getElementById("note-item").value; //get value for the note message
+                noteText.innerHTML = notes;
+                
+                var deleteButton = document.createElement("button"); //create element for delete button
+                deleteButton.setAttribute("class","delete");
+                deleteButton.innerHTML = "Delete";
+                
+                var viewButton = document.createElement("button"); //create element for view button
+                viewButton.setAttribute("class","view");
+                viewButton.innerHTML = "View";
+                
+                
+                var modal = document.createElement("div"); //create element for hidden modals
+                modal.setAttribute("class","modal");
+                modal.setAttribute("id","modal");
+                
+                
+                var modalContent = document.createElement("div");//create element for hidden modal content
+                modalContent.setAttribute("class","modal-content");
+
+                
+                var closeButton = document.createElement("span");
+                closeButton.setAttribute("class","close");
+                closeButton.innerHTML = "&times;";
+                
+                var modalText = document.createElement("p");
+                modalText.innerHTML = notes;
+
+
+                modalContent.appendChild(closeButton);
+                modalContent.appendChild(modalText)
+                modal.appendChild(modalContent);
+                containerText.appendChild(noteText);
+                containerButton.appendChild(modal);
+                containerButton.appendChild(viewButton);
+                containerButton.appendChild(deleteButton);
+                card.appendChild(containerText);
+                card.appendChild(containerButton);
+                empNote.appendChild(card);
+
+                document.getElementById("note-item").value='';
+
+            }
+
+
+            document.getElementById("note-list").addEventListener("click", function(e){
+                if (e.target && e.target.nodeName == "BUTTON" && e.target.className == "delete") {
+                    console.log("button", e,"was clicked to delete!");
+                    e.target.parentNode.parentNode.remove();
+                }
+
+                if (e.target && e.target.nodeName == "BUTTON" && e.target.className == "view") {
+                    console.log("button", e,"was clicked to view!");
+                    var testing = e.target.previousSibling;
+                    testing.style.display = "block";
+                }
+
+                if (e.target && e.target.nodeName == "SPAN") {
+                    console.log("span", e,"was clicked to close!");
+                    var testing2 = e.target.parentNode.parentNode;
+                    testing2.style.display = "none";
+                }
+
+                if (e.target && e.target.nodeName =="WINDOW") {
+                    var testing3 = document.getElementById("modal");
+                    testing3.style.display = "none"
+                }
+            })
+
+
+        </script>
+
+    </body>
+
+</html>
+
